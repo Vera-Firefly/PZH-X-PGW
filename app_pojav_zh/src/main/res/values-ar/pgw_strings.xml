@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From Pojav Glow·Worm -->
+    <string name="mcl_setting_renderer_opengles2_vgpu">VGPU - (حتى 1.16.5، سريعة)</string>
+    <string name="mcl_setting_renderer_virgl">Virgl - (متاح لجميع النسخ، سرعة متوسطة)</string>
+    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (متاح لجميع النسخ، سرعة متوسطة)</string>
+    <!-- Renderer Experimental Setup -->
+    <string name="preference_category_renderer_experimental_settings">إعدادات العارض التجريبية</string>
+    <string name="preference_renderer_setup_title">تمكين إعدادات العارض التجريبية</string>
+    <string name="preference_renderer_setup">المزيد من إعدادات محددة للعارض</string>
+    <string name="preference_spare_bridge_title">جسر احتياطي</string>
+    <string name="preference_spare_bridge">استخدام المخطط الثاني للجسر، إذا فشل التشغيل، يرجى إغلاقه</string>
+    <string name="preference_spare_framebuffer_title">إطار التخزين الاحتياطي</string>
+    <string name="preference_spare_framebuffer">استخدام المخطط الثاني لإطار التخزين، إذا فشل التشغيل، يرجى إغلاقه</string>
+    <string name="preference_renderer_setup_extra">العارض (توسعة)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.2.0 (الافتراضي)</string>
+    <string name="preference_extra_mesa_version">إصدار Mesa</string>
+    <string name="preference_extra_driver_model">إعادة تعيين برنامج التشغيل Gallium</string>
+    <!-- Dialog box prompt -->
+    <string name="preference_rendererexp_alertdialog_message">لقد قمت بتشغيل الإعدادات التجريبية، قد تسبب هذه الميزة مشاكل غير متوقعة، هل تريد الاستمرار في الاستخدام؟</string>
+    <string name="alertdialog_tipa">تحذير! يجب أن تعرف ما هو GL/GLSL قبل استخدام GL/GLSL المخصص</string>
+    <string name="customglglsl_alertdialog_error_gl">يجب أن يكون إصدار GL بين 2.8 و 4.6</string>
+    <string name="customglglsl_alertdialog_error_glsl">يجب أن يكون إصدار GLSL بين 280 و 460</string>
+    <!-- Custom GL/GLSL Version -->
+    <string name="preference_exp_custommv">إصدار GL/GLSL</string>
+    <string name="preference_exp_ebsystem">اتبع النظام</string>
+    <string name="preference_exp_ebspecific">استخدام إصدار ثابت</string>
+    <string name="preference_rendererexp_custom_glversion_title">GL/GLSL المخصص</string>
+    <string name="preference_rendererexp_custom_glversion">يسمح لك بتخصيص إصدار Mesa GL/GLSL</string>
+    <string name="custom_gl_version">إصدار Mesa GL:</string>
+    <string name="custom_glsl_version">إصدار Mesa GLSL:</string>
+    <string name="preference_extra_mesa_download">تحميل مكتبة Mesa</string>
+    <string name="preference_rendererexp_mesa_get_fail">في الحصول على قائمة مكتبة Mesa</string>
+    <string name="preference_rendererexp_mesa_select_download"> للتحميل</string>
+    <string name="preference_rendererexp_mesa_download_load">جارٍ تحميل قائمة مكتبة Mesa</string>
+    <string name="preference_rendererexp_mesa_downloading">تحميل مكتبة Mesa</string>
+    <string name="preference_rendererexp_mesa_download_fail">في تحميل مكتبة Mesa</string>
+    <string name="preference_rendererexp_mesa_downloaded">تحميل مكتبة Mesa ناجح</string>
+    <!-- Custom Mesa Loader Driver Override -->
+    <string name="preference_extra_osm_cmldo_categ">إعادة تعيين برنامج التشغيل الخاص ببرنامج التحميل Mesa المخصص</string>
+    <string name="osm_enable_cmldo">تمكين إعادة تعيين برنامج التشغيل الخاص ببرنامج التحميل Mesa المخصص (فقط لـ Freedreno)</string>
+    <string name="osm_enable_cmldo_desc">إذا لزم الأمر، يمكنك اختيار طريقة المعالجة بحرية</string>
+    <string name="osm_choose_cmldo">برنامج التشغيل الخاص ببرنامج التحميل Mesa المخصص</string>
+</resources>

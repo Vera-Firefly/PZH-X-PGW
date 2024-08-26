@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From Pojav Glow·Worm -->
+    <string name="mcl_setting_renderer_opengles2_vgpu">VGPU - (up to 1.16.5, fast)</string>
+    <string name="mcl_setting_renderer_virgl">Virgl - (all versions, mid)</string>
+    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (all versions, mid)</string>
+    <!-- Renderer Experimental Setup -->
+    <string name="preference_category_renderer_experimental_settings">Renderer Experimental Settings</string>
+    <string name="preference_renderer_setup_title">Enable Renderer Experimental Settings</string>
+    <string name="preference_renderer_setup">More Renderer Specific Settings</string>
+    <string name="preference_spare_bridge_title">Spare Bridge</string>
+    <string name="preference_spare_bridge">Use the second bridge option. If it fails to start, please disable it.</string>
+    <string name="preference_spare_framebuffer_title">Spare Framebuffer</string>
+    <string name="preference_spare_framebuffer">Use the second framebuffer option. If it fails to start, please disable it.</string>
+    <string name="preference_renderer_setup_extra">Renderer (Extra)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.2.0 (Default)</string>
+    <string name="preference_extra_mesa_version">Mesa Version</string>
+    <string name="preference_extra_driver_model">Gallium Driver Override</string>
+    <!-- Dialog box prompt -->
+    <string name="preference_rendererexp_alertdialog_message">You have enabled experimental settings. This feature may cause unexpected issues. Do you want to continue?</string>
+    <string name="alertdialog_tipa">Warning! You must understand what GL/GLSL is before using custom GL/GLSL.</string>
+    <string name="customglglsl_alertdialog_error_gl">GL version must be between 2.8 and 4.6.</string>
+    <string name="customglglsl_alertdialog_error_glsl">GLSL version must be between 280 and 460.</string>
+    <!-- Custom GL/GLSL Version -->
+    <string name="preference_exp_custommv">GL/GLSL Version</string>
+    <string name="preference_exp_ebsystem">Follow System</string>
+    <string name="preference_exp_ebspecific">Use Fixed Version</string>
+    <string name="preference_rendererexp_custom_glversion_title">Custom GL/GLSL</string>
+    <string name="preference_rendererexp_custom_glversion">Allows you to customize the Mesa GL/GLSL version</string>
+    <string name="custom_gl_version">Mesa GL Version:</string>
+    <string name="custom_glsl_version">Mesa GLSL Version:</string>
+    
+    <string name="preference_extra_mesa_download">Download Mesa Lib</string>
+    <string name="preference_rendererexp_mesa_get_fail">Mesa Lib list get fail</string>
+    <string name="preference_rendererexp_mesa_select_download">Select a version to download</string>
+    <string name="preference_rendererexp_mesa_download_load">loading Mesa Lib list</string>
+    <string name="preference_rendererexp_mesa_downloading">Downloading Mesa Lib</string>
+    <string name="preference_rendererexp_mesa_download_fail">Mesa Lib download fail</string>
+    <string name="preference_rendererexp_mesa_downloaded">Mesa Lib download success</string>
+    <!-- Custom Mesa Loader Driver Override -->
+    <string name="preference_extra_osm_cmldo_categ">Custom Mesa Loader Driver Override</string>
+    <string name="osm_enable_cmldo">Enable Custom Mesa Load Driver Override(Only for Freedreno)</string>
+    <string name="osm_enable_cmldo_desc">If need, you can freely choose processing method</string>
+    <string name="osm_choose_cmldo">Choose Mesa Loader Driver Override</string>
+
+</resources>

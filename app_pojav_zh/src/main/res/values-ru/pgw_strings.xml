@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From Pojav Glow·Worm -->
+    <string name="mcl_setting_renderer_opengles2_vgpu">VGPU - (до 1.16.5, быстрая)</string>
+    <string name="mcl_setting_renderer_virgl">Virgl - (доступен для всех версий, средняя скорость)</string>
+    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (доступен для всех версий, средняя скорость)</string>
+    <!-- Renderer Experimental Setup -->
+    <string name="preference_category_renderer_experimental_settings">Экспериментальные настройки рендерера</string>
+    <string name="preference_renderer_setup_title">Включить экспериментальные настройки рендерера</string>
+    <string name="preference_renderer_setup">Больше настроек, специфичных для рендерера</string>
+    <string name="preference_spare_bridge_title">Резервное мостовое соединение</string>
+    <string name="preference_spare_bridge">Использовать второй вариант мостового соединения, если запуск не удался, пожалуйста, отключите</string>
+    <string name="preference_spare_framebuffer_title">Резервный буфер кадра</string>
+    <string name="preference_spare_framebuffer">Использовать второй вариант буфера кадра, если запуск не удался, пожалуйста, отключите</string>
+    <string name="preference_renderer_setup_extra">Рендерер (расширение)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.2.0 (по умолчанию)</string>
+    <string name="preference_extra_mesa_version">Версия Mesa</string>
+    <string name="preference_extra_driver_model">Переопределение драйвера Gallium</string>
+    <!-- Dialog box prompt -->
+    <string name="preference_rendererexp_alertdialog_message">Вы включили экспериментальные настройки, эта функция может вызвать непредвиденные проблемы, продолжить использование?</string>
+    <string name="alertdialog_tipa">Внимание! Перед использованием пользовательских GL/GLSL вы должны понимать, что такое GL/GLSL</string>
+    <string name="customglglsl_alertdialog_error_gl">Версия GL должна быть между 2.8 и 4.6</string>
+    <string name="customglglsl_alertdialog_error_glsl">Версия GLSL должна быть между 280 и 460</string>
+    <!-- Custom GL/GLSL Version -->
+    <string name="preference_exp_custommv">Версия GL/GLSL</string>
+    <string name="preference_exp_ebsystem">Следовать системе</string>
+    <string name="preference_exp_ebspecific">Использовать фиксированную версию</string>
+    <string name="preference_rendererexp_custom_glversion_title">Пользовательский GL/GLSL</string>
+    <string name="preference_rendererexp_custom_glversion">Позволяет вам настроить версию Mesa GL/GLSL</string>
+    <string name="custom_gl_version">Версия Mesa GL:</string>
+    <string name="custom_glsl_version">Версия Mesa GLSL:</string>
+    <string name="preference_extra_mesa_download">Скачать Mesa Lib</string>
+    <string name="preference_rendererexp_mesa_get_fail">Ошибка при получении списка Mesa Lib</string>
+    <string name="preference_rendererexp_mesa_select_download">Выберите версию для скачивания</string>
+    <string name="preference_rendererexp_mesa_download_load">Загрузка списка Mesa Lib</string>
+    <string name="preference_rendererexp_mesa_downloading">Скачивание Mesa Lib</string>
+    <string name="preference_rendererexp_mesa_download_fail">Ошибка при скачивании Mesa Lib</string>
+    <string name="preference_rendererexp_mesa_downloaded">Скачивание Mesa Lib успешно</string>
+    <!-- Custom Mesa Loader Driver Override -->
+    <string name="preference_extra_osm_cmldo_categ">Переопределение драйвера Custom Mesa Loader</string>
+    <string name="osm_enable_cmldo">Включить переопределение драйвера Custom Mesa Load (Только для Freedreno)</string>
+    <string name="osm_enable_cmldo_desc">Если необходимо, вы можете свободно выбрать метод обработки</string>
+    <string name="osm_choose_cmldo">Выберите переопределение драйвера Mesa Loader</string>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From Pojav Glow·Worm -->
+    <string name="mcl_setting_renderer_opengles2_vgpu">VGPU - (最高1.16.5, 快)</string>
+    <string name="mcl_setting_renderer_virgl">Virgl - (全版本可用，速度中等)</string>
+    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (全版本可用，速度中等)</string>
+    <!-- Renderer Experimental Setup -->
+    <string name="preference_category_renderer_experimental_settings">渲染器实验性设置</string>
+    <string name="preference_renderer_setup_title">启用渲染器实验性设置</string>
+    <string name="preference_renderer_setup">更多的渲染器特定设置</string>
+    <string name="preference_spare_bridge_title">备用桥接</string>
+    <string name="preference_spare_bridge">使用第二方案桥接，如果启动失败，请关闭</string>
+    <string name="preference_spare_framebuffer_title">备用帧缓冲区</string>
+    <string name="preference_spare_framebuffer">使用第二方案帧缓冲区，如果启动失败，请关闭</string>
+    <string name="preference_renderer_setup_extra">渲染器 (拓展)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.2.0 (默认)</string>
+    <string name="preference_extra_mesa_version">Mesa 版本</string>
+    <string name="preference_extra_driver_model">Gallium驱动程序</string>
+    <!-- Dialog box prompt -->
+    <string name="preference_rendererexp_alertdialog_message">你已打开实验性设置，此功能可能会产生意想不到的问题，是否继续使用?</string>
+    <string name="alertdialog_tipa">警告！在使用自定义 GL/GLSL 之前你必须了解什么是 GL/GLSL</string>
+    <string name="customglglsl_alertdialog_error_gl">GL版本必须在 2.8 和 4.6 之间</string>
+    <string name="customglglsl_alertdialog_error_glsl">GLSL版本必须在 280 和 460 之间</string>
+    <!-- Custom GL/GLSL Version -->
+    <string name="preference_exp_custommv">GL/GLSL 版本</string>
+    <string name="preference_exp_ebsystem">跟随系统</string>
+    <string name="preference_exp_ebspecific">使用固定版本</string>
+    <string name="preference_rendererexp_custom_glversion_title">自定义 GL/GLSL</string>
+    <string name="preference_rendererexp_custom_glversion">允许你自定义 Mesa GL/GLSL 版本</string>
+    <string name="custom_gl_version">Mesa GL 版本:</string>
+    <string name="custom_glsl_version">Mesa GLSL 版本:</string>
+    <string name="preference_extra_mesa_download">下载 Mesa Lib</string>
+    <string name="preference_rendererexp_mesa_get_fail">获取 Mesa Lib 列表失败</string>
+    <string name="preference_rendererexp_mesa_select_download">选择版本下载</string>
+    <string name="preference_rendererexp_mesa_download_load">加载 Mesa Lib 列表中</string>
+    <string name="preference_rendererexp_mesa_downloading">正在下载 Mesa Lib</string>
+    <string name="preference_rendererexp_mesa_download_fail">Mesa Lib 下载失败</string>
+    <string name="preference_rendererexp_mesa_downloaded">Mesa Lib 下载完成</string>
+    <!-- Custom Mesa Loader Driver Override -->
+    <string name="preference_extra_osm_cmldo_categ">自定义Mesa图形驱动程序</string>
+    <string name="osm_enable_cmldo">允许自定义Mesa图形驱动程序(目前仅Freedreno)</string>
+    <string name="osm_enable_cmldo_desc">如果需要,您可以自由选择处理方法</string>
+    <string name="osm_choose_cmldo">选择Mesa图形驱动程序</string>
+
+</resources>

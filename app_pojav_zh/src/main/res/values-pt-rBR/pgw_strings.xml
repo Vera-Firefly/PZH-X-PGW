@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From Pojav GlowWorm -->
+    <string name="mcl_setting_renderer_opengles2_vgpu">VGPU - (até 1.16.5, rápida)</string>
+    <string name="mcl_setting_renderer_virgl">Virgl - (todas as versões, médio)</string>
+    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (todas as versões, médio)</string>
+    <!-- Renderer Experimental Setup -->
+    <string name="preference_category_renderer_experimental_settings">Configurações Experimentais do Renderer</string>
+    <string name="preference_renderer_setup_title">Habilitar Configurações Experimentais do Renderer</string>
+    <string name="preference_renderer_setup">Mais Configurações Específicas do Renderer</string>
+    <string name="preference_spare_bridge_title">Ponte Auxiliar</string>
+    <string name="preference_spare_bridge">Use a segunda opção de ponte. Se falhar ao iniciar, desabilite-a.</string>
+    <string name="preference_spare_framebuffer_title">Buffer de Quadros Auxiliar</string>
+    <string name="preference_spare_framebuffer">Use a segunda opção de buffer de quadros. Se falhar ao iniciar, desabilite-a.</string>
+    <string name="preference_renderer_setup_extra">Renderer (Extra)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.2.0 (Padrão)</string>
+    <string name="preference_extra_mesa_version">Versão do Mesa</string>
+    <string name="preference_extra_driver_model">Substituição do Driver Gallium</string>
+    <!-- Dialog box prompt -->
+    <string name="preference_rendererexp_alertdialog_message">Você habilitou as configurações experimentais. Esta funcionalidade pode causar problemas inesperados. Você deseja continuar?</string>
+    <string name="alertdialog_tipa">Aviso! Você deve entender o que é GL/GLSL antes de usar o GL/GLSL personalizado.</string>
+    <string name="customglglsl_alertdialog_error_gl">A versão do GL deve estar entre 2.8 e 4.6.</string>
+    <string name="customglglsl_alertdialog_error_glsl">A versão do GLSL deve estar entre 280 e 460.</string>
+    <!-- Custom GL/GLSL Version -->
+    <string name="preference_exp_custommv">Versão do GL/GLSL</string>
+    <string name="preference_exp_ebsystem">Seguir o Sistema</string>
+    <string name="preference_exp_ebspecific">Usar Versão Fixa</string>
+    <string name="preference_rendererexp_custom_glversion_title">Custom GL/GLSL</string>
+    <string name="preference_rendererexp_custom_glversion">Permite personalizar a versão do Mesa GL/GLSL</string>
+    <string name="custom_gl_version">Versão do Mesa GL:</string>
+    <string name="custom_glsl_version">Versão do Mesa GLSL:</string>
+    <string name="preference_extra_mesa_download">Baixar Biblioteca Mesa</string>
+    <string name="preference_rendererexp_mesa_get_fail">Falha ao obter lista da biblioteca Mesa</string>
+    <string name="preference_rendererexp_mesa_select_download">Selecionar versão para download</string>
+    <string name="preference_rendererexp_mesa_download_load">Carregando lista da biblioteca Mesa</string>
+    <string name="preference_rendererexp_mesa_downloading">Baixando biblioteca Mesa</string>
+    <string name="preference_rendererexp_mesa_download_fail">Falha ao baixar biblioteca Mesa</string>
+    <string name="preference_rendererexp_mesa_downloaded">Download da biblioteca Mesa bem-sucedido</string>
+    <!-- Custom Mesa Loader Driver Override -->
+    <string name="preference_extra_osm_cmldo_categ">Substituição do Driver Custom Mesa Loader</string>
+    <string name="osm_enable_cmldo">Habilitar Substituição do Driver Custom Mesa Load (Apenas para Freedreno)</string>
+    <string name="osm_enable_cmldo_desc">Se necessário, você pode livremente escolher o método de processamento</string>
+    <string name="osm_choose_cmldo">Escolha a Substituição do Driver Mesa Loader</string>
+</resources>

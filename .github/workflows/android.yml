@@ -1,0 +1,126 @@
+name: Android CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        arch: [ "all", "arm", "arm64", "x86", "x86_64" ]
+      fail-fast: false
+
+    env:
+      CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+      KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      MY_API_TOKEN: ${{ secrets.MY_API_TOKEN }}
+      MY_PRIVATE_API_TOKEN: ${{ secrets.MY_PRIVATE_API_TOKEN }}
+
+    steps:
+      - name: Set IS_MAIN_BRANCH if on main branch
+        if: github.repository_owner == 'Vera-Firefly' && github.ref_name == 'main'
+        run: echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: SET ENV
+        run: |
+          echo "GET_JRE=2" >> $GITHUB_ENV
+
+      - name: Get JRE
+        run: |
+          chmod +x scripts/getJre.sh
+          sh scripts/getJre.sh
+
+      - name: Get LWJGL3
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: main.yml
+          path: app_pojav_zh/src/main/assets/components/lwjgl3
+          workflow_conclusion: success
+          repo: Vera-Firefly/lwjgl3-build
+          branch: main
+          name: lwjgl
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build Release ${{matrix.arch}}
+        if: github.repository_owner == 'Vera-Firefly' && github.ref_name == 'main'
+        run: |
+          chmod +x gradlew
+          ./gradlew app_pojav_zh:assemblerelease -Darch=${{matrix.arch}}
+
+      - name: Build Debug ${{matrix.arch}}
+        run: |
+          chmod +x gradlew
+          ./gradlew app_pojav_zh:assembleDebug -Darch=${{matrix.arch}}
+
+      - name: Upload Release ${{matrix.arch}}
+        continue-on-error: true
+        if: github.repository_owner == 'Vera-Firefly' && github.ref_name == 'main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: PZH-X-PGW(Release)-${{matrix.arch}}
+          path: app_pojav_zh/build/outputs/apk/release/*
+
+      - name: Upload Debug ${{matrix.arch}}
+        uses: actions/upload-artifact@v4
+        with:
+          name: PZH-X-PGW(Debug)-${{matrix.arch}}
+          path: app_pojav_zh/build/outputs/apk/debug/*
+
+  build-noruntime:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        arch: [ "all", "arm", "arm64", "x86", "x86_64" ]
+      fail-fast: false
+
+    env:
+      CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+      MY_API_TOKEN: ${{ secrets.MY_API_TOKEN }}
+      MY_PRIVATE_API_TOKEN: ${{ secrets.MY_PRIVATE_API_TOKEN }}
+
+    steps:
+      - name: Set IS_MAIN_BRANCH if on main branch
+        if: github.repository_owner == 'Vera-Firefly' && github.ref_name == 'main'
+        run: echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
+
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get LWJGL3
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: main.yml
+          path: app_pojav_zh/src/main/assets/components/lwjgl3
+          workflow_conclusion: success
+          repo: Vera-Firefly/lwjgl3-build
+          branch: main
+          name: lwjgl
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build Debug Noruntime ${{matrix.arch}}
+        run: |
+          chmod +x gradlew
+          ./gradlew app_pojav_zh:assembleDebug -Darch=${{matrix.arch}}
+
+      - name: Upload Debug ${{matrix.arch}}
+        uses: actions/upload-artifact@v4
+        with:
+          name: PZH-X-PGW(Debug - No Runtime)-${{matrix.arch}}
+          path: app_pojav_zh/build/outputs/apk/debug/*
