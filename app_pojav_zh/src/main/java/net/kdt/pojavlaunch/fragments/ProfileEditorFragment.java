@@ -186,7 +186,7 @@ public class ProfileEditorFragment extends FragmentWithAnim implements CropperUt
         });
 
         // Renderer spinner
-        RenderersList renderersList = RendererManager.getCompatibleRenderers(view.getContext());
+        RenderersList renderersList = RendererManager.getCompatibleRenderers(context);
         mRenderNames = renderersList.rendererIds;
         List<String> renderList = new ArrayList<>(renderersList.rendererDisplayNames.length + 1);
         renderList.addAll(Arrays.asList(renderersList.rendererDisplayNames));
