@@ -109,7 +109,7 @@ public final class Tools {
         if(SDK_INT >= 29) {
             return ctx.getExternalFilesDir(null);
         }else{
-            return new File(Environment.getExternalStorageDirectory(),"games/PojavZenithHorizon");
+            return new File(Environment.getExternalStorageDirectory(),"games/PZH-X-PGW");
         }
     }
 
