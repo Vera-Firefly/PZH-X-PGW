@@ -6,14 +6,19 @@ import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.ModCache;
+import com.movtery.pojavzh.feature.mod.ModCategory;
+import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.feature.mod.ModMirror;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
+import com.movtery.pojavzh.feature.mod.translate.ModPackTranslateManager;
+import com.movtery.pojavzh.feature.mod.translate.ModTranslateManager;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType;
+import com.movtery.pojavzh.utils.ZHTools;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
@@ -21,7 +26,6 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 import net.kdt.pojavlaunch.progresskeeper.DownloaderProgressWrapper;
 import net.kdt.pojavlaunch.utils.ZipUtils;
@@ -43,7 +47,9 @@ public class ModrinthApi implements ModpackApi{
     }
 
     @Override
-    public SearchResult searchMod(SearchFilters searchFilters, SearchResult previousPageResult) {
+    public SearchResult searchMod(ModFilters modFilters, SearchResult previousPageResult) {
+        ModCategory.Category categoryName = modFilters.getCategory();
+        if (categoryName != ModCategory.Category.ALL && categoryName.getModrinthName() == null) return returnEmptyResult();
         ModrinthSearchResult modrinthSearchResult = (ModrinthSearchResult) previousPageResult;
 
         // Fixes an issue where the offset being equal or greater than total_hits is ignored
@@ -59,21 +65,29 @@ public class ModrinthApi implements ModpackApi{
         HashMap<String, Object> params = new HashMap<>();
         StringBuilder facetString = new StringBuilder();
         facetString.append("[");
-        facetString.append(String.format("[\"project_type:%s\"]", searchFilters.isModpack ? "modpack" : "mod"));
-        if(searchFilters.mcVersion != null && !searchFilters.mcVersion.isEmpty())
-            facetString.append(String.format(",[\"versions:%s\"]", searchFilters.mcVersion));
-        if (searchFilters.modloaders != null && !searchFilters.modloaders.isEmpty()) {
+        facetString.append(String.format("[\"project_type:%s\"]", modFilters.isModpack() ? "modpack" : "mod"));
+        if (modFilters.getMcVersion() != null && !modFilters.getMcVersion().isEmpty())
+            facetString.append(String.format(",[\"versions:%s\"]", modFilters.getMcVersion()));
+
+        //处理全部"categories"
+        List<String> categoriesList = new ArrayList<>();
+        if (modFilters.getModloader() != null) {
+            categoriesList.add(modFilters.getModloader());
+        }
+        if (categoryName != ModCategory.Category.ALL) categoriesList.add(categoryName.getModrinthName());
+        if (!categoriesList.isEmpty()) {
             StringJoiner categories = new StringJoiner(", ", "[", "]");
-            for (String modloader : searchFilters.modloaders) {
-                categories.add(String.format("\"categories:%s\"", modloader));
+            for (String string : categoriesList) {
+                categories.add(String.format("\"categories:%s\"", string));
             }
             facetString.append(",").append(categories);
         }
+
         facetString.append("]");
         params.put("facets", facetString.toString());
-        params.put("query", searchFilters.name);
+        params.put("query", modFilters.getName());
         params.put("limit", 50);
-        params.put("index", SearchModSort.getModrinthIndexById(searchFilters.sort));
+        params.put("index", SearchModSort.getModrinthIndexById(modFilters.getSort()));
         if(modrinthSearchResult != null)
             params.put("offset", modrinthSearchResult.previousOffset);
 
@@ -105,11 +119,19 @@ public class ModrinthApi implements ModpackApi{
 
             String iconUrl = fetchIconUrl(hit);
 
+            String name = hit.get("title").getAsString();
+            if (ZHTools.areaChecks("zh")) {
+                String chineseName = modFilters.isModpack() ?
+                        ModPackTranslateManager.INSTANCE.searchToChinese(name) :
+                        ModTranslateManager.INSTANCE.searchToChinese(name);
+                name = chineseName != null ? String.format("%s (%s)", chineseName, name) : name;
+            }
+
             modItems.add(new ModItem(
                     Constants.SOURCE_MODRINTH,
                     hit.get("project_type").getAsString().equals("modpack"),
                     hit.get("project_id").getAsString(),
-                    hit.get("title").getAsString(),
+                    name,
                     hit.get("description").getAsString(),
                     hit.get("downloads").getAsInt(),
                     modLoaders.toArray(new ModLoaderList.ModLoader[]{}),
@@ -234,6 +256,13 @@ public class ModrinthApi implements ModpackApi{
             Logging.e("ModrinthAPI", Tools.printToString(e));
             return null;
         }
+    }
+
+    private SearchResult returnEmptyResult() {
+        ModrinthSearchResult searchResult = new ModrinthSearchResult();
+        searchResult.results = new ModItem[0];
+        searchResult.totalResultCount = 0;
+        return searchResult;
     }
 
     @Override

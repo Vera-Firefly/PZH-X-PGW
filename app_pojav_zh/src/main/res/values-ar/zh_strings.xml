@@ -19,6 +19,7 @@
     <string name="zh_loading">جار التحميل</string>
     <string name="zh_optional">اختياري</string>
     <string name="zh_required">إلزامي</string>
+    <string name="zh_all">الكل</string>
     <string name="zh_wan">عشرة آلاف</string>
     <string name="zh_yi">مليار</string>
     <string name="zh_wrong_tip">حدثت بعض المشاكل</string>
@@ -43,6 +44,7 @@
     <string name="zh_profile_mods_download_mod">تنزيل Mod</string>
     <string name="zh_profile_mods_platform">منصة البحث</string>
     <string name="zh_profile_mods_sort_by">طريقة الفرز</string>
+    <string name="zh_profile_mods_category">فئة</string>
     <string name="zh_profile_mods_modloader">محمل Mod</string>
     <string name="zh_profile_mods_download_mod_failed">فشل في تنزيل ملف Mod</string>
     <string name="zh_profile_mods_download_mod_release_version">عرض إصدارات Minecraft الرسمية فقط</string>
@@ -202,7 +204,9 @@
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">فتح الدليل الرئيسي</string>
     <string name="zh_main_share_crash_report">مشاركة تقرير التعطل</string>
-    <string name="zh_main_share_log_tip">هل أنت متأكد أنك تريد مشاركة سجل تشغيل المشغل؟\nموقع ملف السجل:</string>
+    <string name="zh_main_share_log_title">يرجى اختيار نوع ملف السجل</string>
+    <string name="zh_main_share_launcher_log">ملف سجل المشغل</string>
+    <string name="zh_main_share_game_log">ملف سجل جلسة اللعبة الأخيرة</string>
     <string name="zh_main_notice_title">الإشعارات</string>
     <string name="zh_preference_category_language">اللغة</string>
     <string name="zh_preference_category_personalization">تخصيص</string>
@@ -298,11 +302,13 @@
     <string name="zh_about_button_support_development">دعم التطوير</string>
     <string name="zh_about_movtery_desc">مؤلف Pojav Zenith Horizon</string>
     <string name="zh_about_pojavlauncher_desc">فريق تطوير PojavLauncher، قاموا بتطوير ونشر PojavLauncher مفتوح المصدر</string>
+    <string name="zh_about_mcmod_desc">يستخدم Pojav Zenith Horizon التعديلات وحزم الترجمة من MC 百科</string>
     <string name="zh_about_verafirefly_desc">توفير الدعم الفني للتصيير لـ Pojav Zenith Horizon</string>
     <string name="zh_about_lingmuqiuzhu_desc">قدم دعمًا فنيًا لـ Pojav Zenith Horizon</string>
     <string name="zh_about_bangbang93_desc">يستخدم Pojav Zenith Horizon مرآة BMCLAPI التي أنشأها bangbang93</string>
     <string name="zh_about_z0z0r4_desc">يستخدم Pojav Zenith Horizon مرآة معلومات MCIM Mod التي أنشأها z0z0r4</string>
     <string name="zh_about_access_space">زيارة الفضاء</string>
+    <string name="zh_about_access_link">رابط الوصول</string>
     <string name="zh_about_version_name">اسم إصدار البرنامج:</string>
     <string name="zh_about_version_code">رمز إصدار البرنامج:</string>
     <string name="zh_about_last_update_time">آخر وقت تحديث:</string>

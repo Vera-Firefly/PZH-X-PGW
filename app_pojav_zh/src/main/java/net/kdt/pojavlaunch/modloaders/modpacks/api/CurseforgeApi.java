@@ -9,15 +9,20 @@ import com.google.gson.JsonObject;
 import com.kdt.mcgui.ProgressLayout;
 import com.movtery.pojavzh.feature.log.Logging;
 import com.movtery.pojavzh.feature.mod.ModCache;
+import com.movtery.pojavzh.feature.mod.ModCategory;
+import com.movtery.pojavzh.feature.mod.ModFilters;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.feature.mod.ModMirror;
 import com.movtery.pojavzh.feature.mod.SearchModSort;
 import com.movtery.pojavzh.feature.mod.modpack.install.ModPackUtils;
 import com.movtery.pojavzh.feature.mod.modpack.install.OnInstallStartListener;
+import com.movtery.pojavzh.feature.mod.translate.ModPackTranslateManager;
+import com.movtery.pojavzh.feature.mod.translate.ModTranslateManager;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModDependencies;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.ModVersionItem;
 import com.movtery.pojavzh.ui.subassembly.downloadmod.VersionType;
 import com.movtery.pojavzh.utils.MCVersionRegex;
+import com.movtery.pojavzh.utils.ZHTools;
 import com.movtery.pojavzh.utils.stringutils.StringUtils;
 
 import net.kdt.pojavlaunch.R;
@@ -26,7 +31,6 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.CurseManifest;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
-import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -39,7 +43,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.zip.ZipFile;
@@ -52,9 +55,8 @@ public class CurseforgeApi implements ModpackApi{
     private static final int CURSEFORGE_MODPACK_CLASS_ID = 4471;
     // https://api.curseforge.com/v1/categories?gameId=432 and search for "Mods" (case-sensitive)
     private static final int CURSEFORGE_MOD_CLASS_ID = 6;
-    private static final int CURSEFORGE_PAGINATION_SIZE = 100;
+    private static final int CURSEFORGE_PAGINATION_SIZE = 50;
     private static final int CURSEFORGE_PAGINATION_END_REACHED = -1;
-    private static final int CURSEFORGE_PAGINATION_ERROR = -2;
 
     private final ApiHandler mApiHandler;
     public CurseforgeApi(String apiKey) {
@@ -62,27 +64,23 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     @Override
-    public SearchResult searchMod(SearchFilters searchFilters, SearchResult previousPageResult) {
+    public SearchResult searchMod(ModFilters modFilters, SearchResult previousPageResult) {
+        ModCategory.Category category = modFilters.getCategory();
+        if (category != ModCategory.Category.ALL && category.getCurseforgeID() == null) return returnEmptyResult();
         CurseforgeSearchResult curseforgeSearchResult = (CurseforgeSearchResult) previousPageResult;
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("gameId", CURSEFORGE_MINECRAFT_GAME_ID);
-        params.put("classId", searchFilters.isModpack ? CURSEFORGE_MODPACK_CLASS_ID : CURSEFORGE_MOD_CLASS_ID);
-        params.put("searchFilter", searchFilters.name);
-        params.put("sortField", SearchModSort.getCurseforgeIndexById(searchFilters.sort));
+        params.put("classId", modFilters.isModpack() ? CURSEFORGE_MODPACK_CLASS_ID : CURSEFORGE_MOD_CLASS_ID);
+        params.put("searchFilter", modFilters.getName());
+        params.put("sortField", SearchModSort.getCurseforgeIndexById(modFilters.getSort()));
         params.put("sortOrder", "desc");
-        if(searchFilters.mcVersion != null && !searchFilters.mcVersion.isEmpty())
-            params.put("gameVersion", searchFilters.mcVersion);
-        if (searchFilters.modloaders != null && !searchFilters.modloaders.isEmpty()) {
-            if (searchFilters.modloaders.size() > 1) {
-                StringJoiner stringJoiner = new StringJoiner(",", "[", "]");
-                for (String modloader : searchFilters.modloaders) {
-                    stringJoiner.add(ModLoaderList.getModloaderName(modloader));
-                }
-                params.put("modLoaderTypes", stringJoiner.toString());
-            } else {
-                params.put("modLoaderType", ModLoaderList.getModloaderName(searchFilters.modloaders.get(0)));
-            }
+        if (category != ModCategory.Category.ALL) params.put("categoryId", category.getCurseforgeID());
+        if (modFilters.getMcVersion() != null && !modFilters.getMcVersion().isEmpty())
+            params.put("gameVersion", modFilters.getMcVersion());
+        ModLoaderList.ModLoader modLoader = ModLoaderList.getModLoader(modFilters.getModloader());
+        if (modLoader != null) {
+            params.put("modLoaderTypes", String.format("[%s]", modLoader.getId()));
         }
         if(previousPageResult != null)
             params.put("index", curseforgeSearchResult.previousOffset);
@@ -106,10 +104,18 @@ public class CurseforgeApi implements ModpackApi{
 
             String iconUrl = fetchIconUrl(dataElement);
 
+            String name = dataElement.get("name").getAsString();
+            if (ZHTools.areaChecks("zh")) {
+                String chineseName = modFilters.isModpack() ?
+                        ModPackTranslateManager.INSTANCE.searchToChinese(name) :
+                        ModTranslateManager.INSTANCE.searchToChinese(name);
+                name = chineseName != null ? String.format("%s (%s)", chineseName, name) : name;
+            }
+
             ModItem modItem = new ModItem(Constants.SOURCE_CURSEFORGE,
-                    searchFilters.isModpack,
+                    modFilters.isModpack(),
                     dataElement.get("id").getAsString(),
-                    dataElement.get("name").getAsString(),
+                    name,
                     dataElement.get("summary").getAsString(),
                     dataElement.get("downloadCount").getAsInt(),
                     getModloaders(dataElement.getAsJsonArray("latestFilesIndexes")),
@@ -121,7 +127,6 @@ public class CurseforgeApi implements ModpackApi{
         curseforgeSearchResult.totalResultCount = paginationInfo.get("totalCount").getAsInt();
         curseforgeSearchResult.previousOffset += dataArray.size();
         return curseforgeSearchResult;
-
     }
 
     @NonNull
@@ -146,14 +151,13 @@ public class CurseforgeApi implements ModpackApi{
     public ModDetail getModDetails(ModItem item, boolean force) {
         if (!force && ModCache.ModInfoCache.INSTANCE.containsKey(this, item.id)) return new ModDetail(item, ModCache.ModInfoCache.INSTANCE.get(this, item.id));
 
-        ArrayList<JsonObject> allModDetails = new ArrayList<>();
-        int index = 0;
-
-        while (index != CURSEFORGE_PAGINATION_END_REACHED && index != CURSEFORGE_PAGINATION_ERROR) {
-            index = getPaginatedDetails(allModDetails, index, item.id);
+        List<JsonObject> allModDetails;
+        try {
+            allModDetails = getPaginatedDetails(item.id);
+        } catch (IOException e) {
+            Logging.e("CurseForgeAPI", Tools.printToString(e));
+            return null;
         }
-
-        if (index == CURSEFORGE_PAGINATION_ERROR) return null;
 
         List<ModVersionItem> modVersionItems = new ArrayList<>();
 
@@ -245,7 +249,7 @@ public class CurseforgeApi implements ModpackApi{
         return modDependencies;
     }
 
-    public String fetchIconUrl(JsonObject hit) {
+    private String fetchIconUrl(JsonObject hit) {
         try {
             return hit.getAsJsonObject("logo").get("thumbnailUrl").getAsString();
         } catch (Exception e) {
@@ -263,31 +267,49 @@ public class CurseforgeApi implements ModpackApi{
         }
     }
 
-    public JsonObject searchModFromID(String id) {
+    private JsonObject searchModFromID(String id) {
         JsonObject response = mApiHandler.get(String.format("mods/%s", id), JsonObject.class);
         System.out.println(response);
 
         return response;
     }
 
-    private int getPaginatedDetails(ArrayList<JsonObject> objectList, int index, String modId) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("index", index);
-        params.put("pageSize", CURSEFORGE_PAGINATION_SIZE);
+    private List<JsonObject> getPaginatedDetails(String modId) throws IOException {
+        List<JsonObject> dataList = new ArrayList<>();
+        int index = 0;
+        boolean isMirrored = false;
+        while (index != CURSEFORGE_PAGINATION_END_REACHED && !isMirrored) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("index", index);
+            params.put("pageSize", CURSEFORGE_PAGINATION_SIZE);
 
-        JsonObject response = mApiHandler.get("mods/"+modId+"/files", params, JsonObject.class);
-        JsonArray data = GsonJsonUtils.getJsonArraySafe(response, "data");
-        if(data == null) return CURSEFORGE_PAGINATION_ERROR;
+            JsonObject response = mApiHandler.get("mods/" + modId + "/files", params, JsonObject.class);
+            JsonArray data = GsonJsonUtils.getJsonArraySafe(response, "data");
+            if (data == null) {
+                throw new IOException("Invalid data!");
+            }
 
-        for(int i = 0; i < data.size(); i++) {
-            JsonObject fileInfo = data.get(i).getAsJsonObject();
-            if(fileInfo.get("isServerPack").getAsBoolean()) continue;
-            objectList.add(fileInfo);
+            for (int i = 0; i < data.size(); i++) {
+                JsonObject fileInfo = data.get(i).getAsJsonObject();
+                if (fileInfo.get("isServerPack").getAsBoolean()) continue;
+                dataList.add(fileInfo);
+            }
+            if (data.size() < CURSEFORGE_PAGINATION_SIZE) {
+                index = CURSEFORGE_PAGINATION_END_REACHED; // we read the remainder! yay!
+                continue;
+            }
+            index += CURSEFORGE_PAGINATION_SIZE;
+            isMirrored = ModMirror.isInfoMirrored();
         }
-        if(data.size() < CURSEFORGE_PAGINATION_SIZE) {
-            return CURSEFORGE_PAGINATION_END_REACHED; // we read the remainder! yay!
-        }
-        return index + data.size();
+
+        return dataList;
+    }
+
+    private SearchResult returnEmptyResult() {
+        CurseforgeSearchResult searchResult = new CurseforgeSearchResult();
+        searchResult.results = new ModItem[0];
+        searchResult.totalResultCount = 0;
+        return searchResult;
     }
 
     public ModLoader installCurseforgeZip(File zipFile, File instanceDestination, OnInstallStartListener onInstallStartListener) throws IOException {
@@ -300,18 +322,7 @@ public class CurseforgeApi implements ModpackApi{
                 return null;
             }
             if (onInstallStartListener != null) onInstallStartListener.onStart();
-            ModDownloader modDownloader = new ModDownloader(new File(instanceDestination, "mods"), true);
-            int fileCount = curseManifest.files.length;
-            for (int i = 0; i < fileCount; i++) {
-                final CurseManifest.CurseFile curseFile = curseManifest.files[i];
-                modDownloader.submitDownload(() -> {
-                    String url = getDownloadUrl(curseFile.projectID, curseFile.fileID);
-                    if (url == null && curseFile.required)
-                        throw new IOException("Failed to obtain download URL for " + StringUtils.insertSpace(curseFile.projectID, curseFile.fileID));
-                    else if (url == null) return null;
-                    return new ModDownloader.FileInfo(url, FileUtils.getFileName(url), getDownloadSha1(curseFile.projectID, curseFile.fileID));
-                });
-            }
+            ModDownloader modDownloader = getModDownloader(instanceDestination, curseManifest);
             modDownloader.awaitFinish((c, m) ->
                     ProgressKeeper.submitProgress(ProgressLayout.INSTALL_MODPACK, (int) Math.max((float) c / m * 100, 0), R.string.modpack_download_downloading_mods_fc, c, m)
             );
@@ -320,6 +331,23 @@ public class CurseforgeApi implements ModpackApi{
             ZipUtils.zipExtract(modpackZipFile, overridesDir, instanceDestination);
             return createInfo(curseManifest.minecraft);
         }
+    }
+
+    @NonNull
+    private ModDownloader getModDownloader(File instanceDestination, CurseManifest curseManifest) {
+        ModDownloader modDownloader = new ModDownloader(new File(instanceDestination, "mods"), true);
+        int fileCount = curseManifest.files.length;
+        for (int i = 0; i < fileCount; i++) {
+            final CurseManifest.CurseFile curseFile = curseManifest.files[i];
+            modDownloader.submitDownload(() -> {
+                String url = getDownloadUrl(curseFile.projectID, curseFile.fileID);
+                if (url == null && curseFile.required)
+                    throw new IOException("Failed to obtain download URL for " + StringUtils.insertSpace(curseFile.projectID, curseFile.fileID));
+                else if (url == null) return null;
+                return new ModDownloader.FileInfo(url, FileUtils.getFileName(url), getDownloadSha1(curseFile.projectID, curseFile.fileID));
+            });
+        }
+        return modDownloader;
     }
 
     private ModLoader createInfo(CurseManifest.CurseMinecraft minecraft) {

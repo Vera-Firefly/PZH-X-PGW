@@ -22,6 +22,7 @@ class PathAndUrlManager {
         const val URL_GITHUB_RELEASE: String = "https://api.github.com/repos/Vera-Firefly/PZH-X-PGW/releases/latest"
         const val URL_GITHUB_HOME: String = "https://api.github.com/repos/MovTery/PZH-InfoRetrieval/contents/"
         const val URL_GITHUB_POJAVLAUNCHER: String = "https://github.com/PojavLauncherTeam/PojavLauncher"
+        const val URL_MCMOD: String = "https://www.mcmod.cn/"
         const val URL_MINECRAFT: String = "https://www.minecraft.net/"
         const val URL_SUPPORT: String = "https://afdian.com/a/MovTery"
         const val URL_HOME: String = "https://github.com/MovTery/PojavZenithHorizon"
@@ -34,6 +35,8 @@ class PathAndUrlManager {
         @JvmField var DIR_GAME_HOME: String = Environment.getExternalStorageDirectory().absolutePath + "/games/PZH-X-PGW"
         @JvmField var DIR_LAUNCHER_LOG: String? = null
         @JvmField var DIR_CTRLMAP_PATH: String? = null
+        @JvmField var DIR_ACCOUNT_NEW: String? = null
+        @JvmField var DIR_CACHE_STRING: String? = null
 
         @JvmField var DIR_GAME_DEFAULT: String? = null
         @JvmField var DIR_CUSTOM_MOUSE: String? = null
@@ -44,6 +47,7 @@ class PathAndUrlManager {
 
         @JvmField var FILE_PROFILE_PATH: File? = null
         @JvmField var FILE_CTRLDEF_FILE: String? = null
+        @JvmField var FILE_VERSION_LIST: String? = null
 
         @JvmField var MESA_DIR: String? = null
 
@@ -56,16 +60,19 @@ class PathAndUrlManager {
             DIR_GAME_HOME = Tools.getPojavStorageRoot(context).absolutePath
             DIR_LAUNCHER_LOG = "$DIR_GAME_HOME/launcher_log"
             DIR_CTRLMAP_PATH = "$DIR_GAME_HOME/controlmap"
+            DIR_ACCOUNT_NEW = "$DIR_DATA/accounts"
+            DIR_CACHE_STRING = "$DIR_CACHE/string_cache"
 
             FILE_PROFILE_PATH = File(DIR_DATA, "/profile_path.json")
             FILE_CTRLDEF_FILE = "$DIR_GAME_HOME/controlmap/default.json"
+            FILE_VERSION_LIST = "$DIR_DATA/version_list.json"
 
             DIR_GAME_DEFAULT = "$gameHome/instance/default"
             DIR_CUSTOM_MOUSE = "$DIR_GAME_HOME/mouse"
             DIR_LOGIN = "$DIR_GAME_HOME/login"
             DIR_BACKGROUND = File("$DIR_GAME_HOME/background")
             DIR_APP_CACHE = context.externalCacheDir
-            DIR_USER_ICON = File(DIR_CACHE, "/user_icon")
+            DIR_USER_ICON = File(DIR_DATA, "/user_icon")
 
             MESA_DIR = "$DIR_DATA/mesa"
 

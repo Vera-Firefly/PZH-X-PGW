@@ -19,6 +19,7 @@
     <string name="zh_loading">載入中</string>
     <string name="zh_optional">選填</string>
     <string name="zh_required">必填</string>
+    <string name="zh_all">全部</string>
     <string name="zh_wan">萬</string>
     <string name="zh_yi">億</string>
     <string name="zh_wrong_tip">出現了一些問題</string>
@@ -43,6 +44,7 @@
     <string name="zh_profile_mods_download_mod">下載 Mod</string>
     <string name="zh_profile_mods_platform">搜尋平台</string>
     <string name="zh_profile_mods_sort_by">排序方式</string>
+    <string name="zh_profile_mods_category">類別</string>
     <string name="zh_profile_mods_modloader">Mod 加載器</string>
     <string name="zh_profile_mods_download_mod_failed">下載 Mod 檔案時失敗</string>
     <string name="zh_profile_mods_download_mod_release_version">僅顯示 Minecraft 正式版本</string>
@@ -202,7 +204,9 @@
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">打開主目錄</string>
     <string name="zh_main_share_crash_report">分享崩潰報告</string>
-    <string name="zh_main_share_log_tip">你確定要分享啟動器的執行日誌嗎？\n日誌文件位置:</string>
+    <string name="zh_main_share_log_title">請選擇日誌文件類型</string>
+    <string name="zh_main_share_launcher_log">啟動器日誌文件</string>
+    <string name="zh_main_share_game_log">上一次遊戲運行日誌</string>
     <string name="zh_main_notice_title">通知欄</string>
     <string name="zh_preference_category_language">語言</string>
     <string name="zh_preference_category_personalization">個性化</string>
@@ -298,11 +302,13 @@
     <string name="zh_about_button_support_development">贊助開發</string>
     <string name="zh_about_movtery_desc">Pojav Zenith Horizon 的作者</string>
     <string name="zh_about_pojavlauncher_desc">PojavLauncher 的開發團隊，開發並開源了 PojavLauncher</string>
+    <string name="zh_about_mcmod_desc">Pojav Zenith Horizon 使用了來自 MC 百科的 Mod 以及整合包中文翻譯</string>
     <string name="zh_about_verafirefly_desc">為 Pojav Zenith Horizon 提供渲染方面的技術支援</string>
     <string name="zh_about_lingmuqiuzhu_desc">為 Pojav Zenith Horizon 提供了技術支援</string>
     <string name="zh_about_bangbang93_desc">Pojav Zenith Horizon 使用了其創作的 BMCLAPI 鏡像源</string>
     <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon 使用了其創作的 MCIM Mod 資訊鏡像源</string>
     <string name="zh_about_access_space">訪問空間</string>
+    <string name="zh_about_access_link">訪問鏈接</string>
     <string name="zh_about_version_name">軟體版本名稱:</string>
     <string name="zh_about_version_code">軟體版本碼:</string>
     <string name="zh_about_last_update_time">上次更新時間:</string>

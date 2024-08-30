@@ -19,6 +19,7 @@
     <string name="zh_loading">Loading</string>
     <string name="zh_optional">Optional</string>
     <string name="zh_required">Required</string>
+    <string name="zh_all">All</string>
     <string name="zh_wan">Ten thousand</string>
     <string name="zh_yi">A Hundred million</string>
     <string name="zh_wrong_tip">Something went wrong</string>
@@ -43,6 +44,7 @@
     <string name="zh_profile_mods_download_mod">Download Mod</string>
     <string name="zh_profile_mods_platform">Search Platform</string>
     <string name="zh_profile_mods_sort_by">Sort By</string>
+    <string name="zh_profile_mods_category">Category</string>
     <string name="zh_profile_mods_modloader">Mod Loader</string>
     <string name="zh_profile_mods_download_mod_failed">Failed to download Mod file</string>
     <string name="zh_profile_mods_download_mod_release_version">Show only Minecraft release versions</string>
@@ -202,7 +204,9 @@
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">Open main directory</string>
     <string name="zh_main_share_crash_report">Share Crash Report</string>
-    <string name="zh_main_share_log_tip">Are you sure you want to share the launcher\'s running log?\nLog file location:</string>
+    <string name="zh_main_share_log_title">Please select the type of log file</string>
+    <string name="zh_main_share_launcher_log">Launcher log file</string>
+    <string name="zh_main_share_game_log">Last game session log</string>
     <string name="zh_main_notice_title">Notification Bar</string>
     <string name="zh_preference_category_language">Language</string>
     <string name="zh_preference_category_personalization">Personalization</string>
@@ -298,11 +302,13 @@
     <string name="zh_about_button_support_development">Support Development</string>
     <string name="zh_about_movtery_desc">Author of Pojav Zenith Horizon</string>
     <string name="zh_about_pojavlauncher_desc">Development team of PojavLauncher, developed and open-sourced PojavLauncher</string>
+    <string name="zh_about_mcmod_desc">Pojav Zenith Horizon uses mods and integrated package translations from MC 百科</string>
     <string name="zh_about_verafirefly_desc">Provides rendering technical support for Pojav Zenith Horizon</string>
     <string name="zh_about_lingmuqiuzhu_desc">Provided technical support for Pojav Zenith Horizon</string>
     <string name="zh_about_bangbang93_desc">Pojav Zenith Horizon uses the BMCLAPI mirror created by bangbang93</string>
     <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon uses the MCIM Mod information mirror created by z0z0r4</string>
     <string name="zh_about_access_space">Access Space</string>
+    <string name="zh_about_access_link">Access Link</string>
     <string name="zh_about_version_name">Software Version Name:</string>
     <string name="zh_about_version_code">Software Version Code:</string>
     <string name="zh_about_last_update_time">Last update time:</string>

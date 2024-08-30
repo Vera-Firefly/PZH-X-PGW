@@ -19,6 +19,7 @@
     <string name="zh_loading">Загрузка</string>
     <string name="zh_optional">Необязательно</string>
     <string name="zh_required">Обязательно</string>
+    <string name="zh_all">Все</string>
     <string name="zh_wan">Тысяча</string>
     <string name="zh_yi">Миллиард</string>
     <string name="zh_wrong_tip">Произошла ошибка</string>
@@ -43,6 +44,7 @@
     <string name="zh_profile_mods_download_mod">Скачать Mod</string>
     <string name="zh_profile_mods_platform">Платформа поиска</string>
     <string name="zh_profile_mods_sort_by">Сортировать по</string>
+    <string name="zh_profile_mods_category">Категория</string>
     <string name="zh_profile_mods_modloader">Загрузчик Mod</string>
     <string name="zh_profile_mods_download_mod_failed">Не удалось скачать файл Mod</string>
     <string name="zh_profile_mods_download_mod_release_version">Показывать только официальные версии Minecraft</string>
@@ -202,7 +204,9 @@
     <!-- Main Page & Preferce Settings -->
     <string name="zh_main_open_main_dir">Открыть главную папку</string>
     <string name="zh_main_share_crash_report">Поделиться отчетом о сбое</string>
-    <string name="zh_main_share_log_tip">Вы уверены, что хотите поделиться журналом работы лаунчера?\nРасположение файла журнала:</string>
+    <string name="zh_main_share_log_title">Пожалуйста, выберите тип файла журнала</string>
+    <string name="zh_main_share_launcher_log">Файл журнала лаунчера</string>
+    <string name="zh_main_share_game_log">Журнал последней игровой сессии</string>
     <string name="zh_main_notice_title">Уведомления</string>
     <string name="zh_preference_category_language">Язык</string>
     <string name="zh_preference_category_personalization">Персонализация</string>
@@ -298,11 +302,13 @@
     <string name="zh_about_button_support_development">Поддержать разработку</string>
     <string name="zh_about_movtery_desc">Автор Pojav Zenith Horizon</string>
     <string name="zh_about_pojavlauncher_desc">Команда разработчиков PojavLauncher, разработала и открыла исходный код PojavLauncher</string>
+    <string name="zh_about_mcmod_desc">Pojav Zenith Horizon использует моды и переводы интегрированных пакетов из MC 百科</string>
     <string name="zh_about_verafirefly_desc">Предоставляет техническую поддержку по рендерингу для Pojav Zenith Horizon</string>
     <string name="zh_about_lingmuqiuzhu_desc">Обеспечил техническую поддержку для Pojav Zenith Horizon</string>
     <string name="zh_about_bangbang93_desc">Pojav Zenith Horizon использует зеркало BMCLAPI, созданное bangbang93</string>
     <string name="zh_about_z0z0r4_desc">Pojav Zenith Horizon использует зеркало информации о модах MCIM, созданное z0z0r4</string>
     <string name="zh_about_access_space">Доступ к пространству</string>
+    <string name="zh_about_access_link">Ссылка для доступа</string>
     <string name="zh_about_version_name">Название версии программного обеспечения:</string>
     <string name="zh_about_version_code">Код версии программного обеспечения:</string>
     <string name="zh_about_last_update_time">Время последнего обновления:</string>
