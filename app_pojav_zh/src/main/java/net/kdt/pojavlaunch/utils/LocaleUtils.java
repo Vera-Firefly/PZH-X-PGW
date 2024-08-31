@@ -22,7 +22,7 @@ public class LocaleUtils extends ContextWrapper {
             LauncherPreferences.loadPreferences(context);
         }
 
-        if(DEFAULT_PREF.getBoolean("force_english", false)){
+        if (DEFAULT_PREF.getBoolean("force_english", false)) {
             Resources resources = context.getResources();
             Configuration configuration = resources.getConfiguration();
 
@@ -35,18 +35,12 @@ public class LocaleUtils extends ContextWrapper {
             Locale defaultLocale = new Locale("en", "XA");
             configuration.setLocale(defaultLocale);
             Locale.setDefault(defaultLocale);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                LocaleList localeList = new LocaleList(defaultLocale);
-                LocaleList.setDefault(localeList);
-                configuration.setLocales(localeList);
-            }
+            LocaleList localeList = new LocaleList(defaultLocale);
+            LocaleList.setDefault(localeList);
+            configuration.setLocales(localeList);
 
             resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                context = context.createConfigurationContext(configuration);
-            }
+            context = context.createConfigurationContext(configuration);
         }
 
         return new LocaleUtils(context);
