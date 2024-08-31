@@ -50,7 +50,7 @@ public class RendererManager {
         List<String> downloadList = MesaUtils.INSTANCE.getMesaLibList();
         for (String item : downloadList) {
             CMesaLibIds.add(item);
-            CMesaLibNames.add(item);
+            CMesaLibNames.add("Mesa " + item);
         }
 
         return new CMesaLibList(CMesaLibIds, CMesaLibNames.toArray(new String[0]));
