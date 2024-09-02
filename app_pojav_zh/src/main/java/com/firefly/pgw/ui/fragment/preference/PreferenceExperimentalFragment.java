@@ -21,9 +21,10 @@ import java.util.Set;
 
 import com.firefly.pgw.renderer.RendererManager;
 import com.firefly.pgw.ui.dialog.EditMesaVersionDialog;
-import com.movtery.pojavzh.ui.dialog.TipDialog;
+import com.firefly.pgw.ui.fragment.DeletableListPreference;
 import com.firefly.pgw.utils.ListAndArray;
 import com.firefly.pgw.utils.MesaUtils;
+import com.movtery.pojavzh.ui.dialog.TipDialog;
 
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.R;
@@ -45,7 +46,7 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
             return true;
         });
 
-        final ListPreference CMesaLib = requirePreference("CMesaLibrary", ListPreference.class);
+        final ListPreference CMesaLib = requirePreference("CMesaLibrary", DeletableListPreference.class);
         final ListPreference CDriverModel = requirePreference("CDriverModels", ListPreference.class);
         final ListPreference CMesaLDOP = requirePreference("ChooseMldo", ListPreference.class);
 
@@ -215,6 +216,7 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
                 if (data) {
                     Toast.makeText(requireContext(), R.string.preference_rendererexp_mesa_downloaded, Toast.LENGTH_SHORT)
                             .show();
+                    setListPreference(requirePreference("CMesaLibrary", DeletableListPreference.class), "CMesaLibrary");
                 } else {
                     AlertDialog alertDialog1 = new AlertDialog.Builder(requireActivity())
                             .setMessage(R.string.preference_rendererexp_mesa_download_fail)
