@@ -63,7 +63,7 @@ public class DeletableListPreference extends ListPreference {
     }
 
     private void showDeleteConfirmationDialog(String version) {
-        new TipDialog.Builder(requireContext())
+        new TipDialog.Builder(getContext())
             .setTitle(R.string.preference_rendererexp_mesa_delete_title)
             .setMessage(getContext().getString(R.string.preference_rendererexp_mesa_delete_message, version))
             .setConfirmClickListener(() -> {
