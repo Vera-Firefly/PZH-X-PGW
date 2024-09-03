@@ -20,6 +20,7 @@ import java.util.List;
 public class DeletableListPreference extends ListPreference {
 
     private List<String> defaultLibs;
+    private OnPreferenceChangeListener preferenceChangeListener;
 
     public DeletableListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -32,6 +33,7 @@ public class DeletableListPreference extends ListPreference {
 
     @Override
     protected void onClick() {
+        String initialValue = getValue();
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getDialogTitle());
 
@@ -42,7 +44,16 @@ public class DeletableListPreference extends ListPreference {
         }
 
         builder.setItems(entries, (dialog, which) -> {
-            setValueIndex(which);
+            String newValue = getEntryValues()[which].toString();
+            if (!newValue.equals(initialValue)) {
+                if (preferenceChangeListener != null) {
+                    if (preferenceChangeListener.onPreferenceChange(this, newValue)) {
+                        setValue(newValue);
+                    }
+                } else {
+                    setValue(newValue);
+                }
+            }
             dialog.dismiss();
         });
 
@@ -62,6 +73,12 @@ public class DeletableListPreference extends ListPreference {
         });
     }
 
+    @Override
+    public void setOnPreferenceChangeListener(OnPreferenceChangeListener listener) {
+        this.preferenceChangeListener = listener;
+        super.setOnPreferenceChangeListener(listener);
+    }
+
     private void showDeleteConfirmationDialog(String version) {
         new TipDialog.Builder(getContext())
             .setTitle(R.string.preference_rendererexp_mesa_delete_title)
@@ -78,8 +95,12 @@ public class DeletableListPreference extends ListPreference {
     }
 
     private void setEntriesAndValues() {
-        ListAndArray array = RendererManager.getCompatibleCMesaLib(getContext());
+        Tools.IListAndArry array = Tools.getCompatibleCMesaLib(getContext());
         setEntries(array.getArray());
         setEntryValues(array.getList().toArray(new String[0]));
+        String currentValue = getValue();
+        if (!array.getList().contains(currentValue)) {
+            setValueIndex(0);
+        }
     }
 }

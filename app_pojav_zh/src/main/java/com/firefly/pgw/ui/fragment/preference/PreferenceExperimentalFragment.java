@@ -46,7 +46,7 @@ public class PreferenceExperimentalFragment extends LauncherPreferenceFragment {
             return true;
         });
 
-        final ListPreference CMesaLib = requirePreference("CMesaLibrary", DeletableListPreference.class);
+        final DeletableListPreference CMesaLib = requirePreference("CMesaLibrary", DeletableListPreference.class);
         final ListPreference CDriverModel = requirePreference("CDriverModels", ListPreference.class);
         final ListPreference CMesaLDOP = requirePreference("ChooseMldo", ListPreference.class);
 
