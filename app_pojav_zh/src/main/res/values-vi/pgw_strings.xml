@@ -36,6 +36,12 @@
     <string name="preference_rendererexp_mesa_downloading">Đang téléchargement Mesa Lib</string>
     <string name="preference_rendererexp_mesa_download_fail">Lỗi téléchargement Mesa Lib</string>
     <string name="preference_rendererexp_mesa_downloaded">Téléchargement Mesa Lib thành công</string>
+    <string name="preference_rendererexp_mesa_dialogtitle">Chọn phiên bản Mesa (Nhấn và giữ để xóa)</string>
+    <string name="preference_rendererexp_mesa_delete_defaultlib">Không thể xóa thư viện mặc định</string>
+    <string name="preference_rendererexp_mesa_delete_title">Xóa thư viện Mesa</string>
+    <string name="preference_rendererexp_mesa_delete_message">Bạn có chắc chắn muốn xóa thư viện Mesa%s không?</string>
+    <string name="preference_rendererexp_mesa_deleted">Đã xóa thành công</string>
+    <string name="preference_rendererexp_mesa_delete_fail">Xóa không thành công</string>
     <!-- Custom Mesa Loader Driver Override -->
     <string name="preference_extra_osm_cmldo_categ">Giai Overrides Driver Load Mesa</string>
     <string name="osm_enable_cmldo">Kích hoạt Giai Overrides Driver Load Mesa (Chỉ có với Freedreno)</string>

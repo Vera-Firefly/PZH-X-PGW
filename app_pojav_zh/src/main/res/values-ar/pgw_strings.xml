@@ -36,6 +36,12 @@
     <string name="preference_rendererexp_mesa_downloading">تحميل مكتبة Mesa</string>
     <string name="preference_rendererexp_mesa_download_fail">في تحميل مكتبة Mesa</string>
     <string name="preference_rendererexp_mesa_downloaded">تحميل مكتبة Mesa ناجح</string>
+    <string name="preference_rendererexp_mesa_dialogtitle">اختر إصدار Mesa (اضغط مطولًا للحذف)</string>
+    <string name="preference_rendererexp_mesa_delete_defaultlib">لا يمكن حذف المكتبة الافتراضية</string>
+    <string name="preference_rendererexp_mesa_delete_title">حذف مكتبة Mesa</string>
+    <string name="preference_rendererexp_mesa_delete_message">هل أنت متأكد أنك تريد حذف مكتبة Mesa %s؟</string>
+    <string name="preference_rendererexp_mesa_deleted">تم الحذف بنجاح</string>
+    <string name="preference_rendererexp_mesa_delete_fail">فشل الحذف</string>
     <!-- Custom Mesa Loader Driver Override -->
     <string name="preference_extra_osm_cmldo_categ">إعادة تعيين برنامج التشغيل الخاص ببرنامج التحميل Mesa المخصص</string>
     <string name="osm_enable_cmldo">تمكين إعادة تعيين برنامج التشغيل الخاص ببرنامج التحميل Mesa المخصص (فقط لـ Freedreno)</string>

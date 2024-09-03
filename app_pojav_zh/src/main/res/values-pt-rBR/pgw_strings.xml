@@ -36,6 +36,12 @@
     <string name="preference_rendererexp_mesa_downloading">Baixando biblioteca Mesa</string>
     <string name="preference_rendererexp_mesa_download_fail">Falha ao baixar biblioteca Mesa</string>
     <string name="preference_rendererexp_mesa_downloaded">Download da biblioteca Mesa bem-sucedido</string>
+    <string name="preference_rendererexp_mesa_dialogtitle">Escolha a versão do Mesa (Pressione e segure para excluir)</string>
+    <string name="preference_rendererexp_mesa_delete_defaultlib">A biblioteca padrão não pode ser excluída</string>
+    <string name="preference_rendererexp_mesa_delete_title">Excluir Biblioteca Mesa</string>
+    <string name="preference_rendererexp_mesa_delete_message">Tem certeza de que deseja excluir a biblioteca Mesa%s?</string>
+    <string name="preference_rendererexp_mesa_deleted">Excluído com sucesso</string>
+    <string name="preference_rendererexp_mesa_delete_fail">Falha ao excluir</string>
     <!-- Custom Mesa Loader Driver Override -->
     <string name="preference_extra_osm_cmldo_categ">Substituição do Driver Custom Mesa Loader</string>
     <string name="osm_enable_cmldo">Habilitar Substituição do Driver Custom Mesa Load (Apenas para Freedreno)</string>

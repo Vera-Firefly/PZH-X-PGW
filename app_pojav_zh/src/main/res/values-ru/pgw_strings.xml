@@ -36,6 +36,12 @@
     <string name="preference_rendererexp_mesa_downloading">Скачивание Mesa Lib</string>
     <string name="preference_rendererexp_mesa_download_fail">Ошибка при скачивании Mesa Lib</string>
     <string name="preference_rendererexp_mesa_downloaded">Скачивание Mesa Lib успешно</string>
+    <string name="preference_rendererexp_mesa_dialogtitle">Выберите версию Mesa (удерживайте для удаления)</string>
+    <string name="preference_rendererexp_mesa_delete_defaultlib">Библиотеку по умолчанию нельзя удалить</string>
+    <string name="preference_rendererexp_mesa_delete_title">Удалить библиотеку Mesa</string>
+    <string name="preference_rendererexp_mesa_delete_message">Вы уверены, что хотите удалить библиотеку Mesa%s?</string>
+    <string name="preference_rendererexp_mesa_deleted">Успешно удалено</string>
+    <string name="preference_rendererexp_mesa_delete_fail">Не удалось удалить</string>
     <!-- Custom Mesa Loader Driver Override -->
     <string name="preference_extra_osm_cmldo_categ">Переопределение драйвера Custom Mesa Loader</string>
     <string name="osm_enable_cmldo">Включить переопределение драйвера Custom Mesa Load (Только для Freedreno)</string>
