@@ -11,7 +11,7 @@ static def getEnvOrDefault(String envVar, String defaultValue) {
 def getVersionCode = {
     def isMainBranch = System.getenv('IS_MAIN_BRANCH') == 'true'
 
-    def baseDateSeconds = 9939458
+    def baseDateSeconds = 9939558
     if (isMainBranch) {
         baseDateSeconds += Integer.parseInt(System.getenv("GITHUB_RUN_NUMBER"))
     }
