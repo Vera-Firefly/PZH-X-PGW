@@ -95,7 +95,7 @@ public class DeletableListPreference extends ListPreference {
     }
 
     private void setEntriesAndValues() {
-        Tools.IListAndArry array = Tools.getCompatibleCMesaLib(getContext());
+        ListAndArray array = RendererManager.getCompatibleCMesaLib(getContext());
         setEntries(array.getArray());
         setEntryValues(array.getList().toArray(new String[0]));
         String currentValue = getValue();
