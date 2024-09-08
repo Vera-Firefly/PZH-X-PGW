@@ -13,7 +13,7 @@
     <string name="preference_spare_framebuffer_title">Bộ đệm khung hình dự phòng</string>
     <string name="preference_spare_framebuffer">Sử dụng phương án bộ đệm khung hình thứ hai, nếu khởi động thất bại, vui lòng tắt</string>
     <string name="preference_renderer_setup_extra">Trình kết xuất (Mở rộng)</string>
-    <string name="preference_renderer_extra_default">Mesa 24.2.0 (mặc định)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.2.2 (mặc định)</string>
     <string name="preference_extra_mesa_version">Phiên bản Mesa</string>
     <string name="preference_extra_driver_model">Gallium Driver Override</string>
     <!-- Dialog box prompt -->

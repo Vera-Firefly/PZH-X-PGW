@@ -187,20 +187,39 @@
                 tools:srcCompat="@tools:sample/avatars"
                 tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/zh_mod_name"
+            <RelativeLayout
+                android:id="@+id/mod_title_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_14sdp"
                 android:paddingHorizontal="@dimen/_8sdp"
-                android:singleLine="true"
-                android:text="Mod Name"
-                android:textSize="14sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/zh_mod_icon"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintTop_toBottomOf="@+id/zh_mod_icon">
+
+                <TextView
+                    android:id="@+id/zh_mod_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    tools:text="Mod Title" />
+
+                <TextView
+                    android:id="@+id/zh_mod_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/zh_mod_name"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    android:textSize="12sp"
+                    android:singleLine="true"
+                    tools:text="Mod SubTitle" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/zh_select_title"
@@ -215,8 +234,22 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/zh_mod_name"
+                app:layout_constraintTop_toBottomOf="@+id/mod_title_layout"
                 tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/zh_launch_link"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:contentDescription="@string/zh_about_access_link"
+                android:src="@drawable/ic_launch_link"
+                android:scaleType="centerInside"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,13 +37,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.StringJoiner;
+import java.util.TreeSet;
 import java.util.zip.ZipFile;
 
 public class ModrinthApi implements ModpackApi{
     private final ApiHandler mApiHandler;
     public ModrinthApi(){
         mApiHandler = new ApiHandler(ModMirror.replaceMirrorInfoUrl("https://api.modrinth.com/v2"));
+    }
+
+    @Override
+    public String getWebUrl(ModItem item) {
+        return "https://modrinth.com/"+ (item.isModpack ? "modpack" : "mod") + "/" + item.id;
     }
 
     @Override
@@ -119,21 +126,18 @@ public class ModrinthApi implements ModpackApi{
 
             String iconUrl = fetchIconUrl(hit);
 
-            String name = hit.get("title").getAsString();
-            if (ZHTools.areaChecks("zh")) {
-                String chineseName = modFilters.isModpack() ?
-                        ModPackTranslateManager.INSTANCE.searchToChinese(name) :
-                        ModTranslateManager.INSTANCE.searchToChinese(name);
-                name = chineseName != null ? String.format("%s (%s)", chineseName, name) : name;
-            }
+            String title = hit.get("title").getAsString();
+            String subTitle = getSubTitle(title, modFilters.isModpack());
 
             modItems.add(new ModItem(
                     Constants.SOURCE_MODRINTH,
                     hit.get("project_type").getAsString().equals("modpack"),
                     hit.get("project_id").getAsString(),
-                    name,
+                    title,
+                    subTitle,
                     hit.get("description").getAsString(),
                     hit.get("downloads").getAsInt(),
+                    getAllCategories(hit),
                     modLoaders.toArray(new ModLoaderList.ModLoader[]{}),
                     iconUrl));
         }
@@ -221,13 +225,18 @@ public class ModrinthApi implements ModpackApi{
 
                         String iconUrl = fetchIconUrl(hit);
 
+                        String title = hit.get("title").getAsString();
+                        String subTitle = getSubTitle(title, item.isModpack);
+
                         ModCache.ModItemCache.INSTANCE.put(this, projectId, new ModItem(
                                 Constants.SOURCE_MODRINTH,
                                 hit.get("project_type").getAsString().equals("modpack"),
                                 projectId,
-                                hit.get("title").getAsString(),
+                                title,
+                                subTitle,
                                 hit.get("description").getAsString(),
                                 hit.get("downloads").getAsInt(),
+                                getAllCategories(hit),
                                 modLoadersList.toArray(new ModLoaderList.ModLoader[]{}),
                                 iconUrl
                         ));
@@ -258,6 +267,26 @@ public class ModrinthApi implements ModpackApi{
         }
     }
 
+    private String getSubTitle(String title, boolean isModPack) {
+        String subTitle = null;
+        if (ZHTools.areaChecks("zh")) {
+            subTitle = isModPack ?
+                    ModPackTranslateManager.INSTANCE.searchToChinese(title) :
+                    ModTranslateManager.INSTANCE.searchToChinese(title);
+        }
+        return subTitle;
+    }
+
+    private Set<ModCategory.Category> getAllCategories(JsonObject hit) {
+        Set<ModCategory.Category> list = new TreeSet<>();
+        for (JsonElement categories : hit.get("categories").getAsJsonArray()) {
+            String name = categories.getAsString();
+            ModCategory.Category category = ModCategory.getCategoryFromModrinthName(name);
+            if (category != null) list.add(category);
+        }
+        return list;
+    }
+
     private SearchResult returnEmptyResult() {
         ModrinthSearchResult searchResult = new ModrinthSearchResult();
         searchResult.results = new ModItem[0];
@@ -281,15 +310,19 @@ public class ModrinthApi implements ModpackApi{
         if(mcVersion == null) return null;
         String modLoaderVersion;
         if((modLoaderVersion = dependencies.get("forge")) != null) {
+            Logging.i("ModLoader", "Forge");
             return new ModLoader(ModLoader.MOD_LOADER_FORGE, modLoaderVersion, mcVersion);
         }
         if((modLoaderVersion = dependencies.get("neoforge")) != null) {
+            Logging.i("ModLoader", "NeoForge");
             return new ModLoader(ModLoader.MOD_LOADER_NEOFORGE, modLoaderVersion, mcVersion);
         }
         if((modLoaderVersion = dependencies.get("fabric-loader")) != null) {
+            Logging.i("ModLoader", "Fabric");
             return new ModLoader(ModLoader.MOD_LOADER_FABRIC, modLoaderVersion, mcVersion);
         }
         if((modLoaderVersion = dependencies.get("quilt-loader")) != null) {
+            Logging.i("ModLoader", "Quilt");
             return new ModLoader(ModLoader.MOD_LOADER_QUILT, modLoaderVersion, mcVersion);
         }
         return null;

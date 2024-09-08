@@ -9,6 +9,7 @@ import com.movtery.pojavzh.utils.PathAndUrlManager;
 import net.kdt.pojavlaunch.Tools;
 
 import java.io.BufferedInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -59,7 +60,7 @@ public class ApiHandler {
     public static String getRaw(Map<String, String> headers, String url) {
         Logging.d("ApiHandler", url);
         HttpURLConnection conn = null;
-        try{
+        try {
             conn = PathAndUrlManager.createHttpConnection(new URL(url));
             addHeaders(conn, headers);
             InputStream inputStream = new BufferedInputStream(conn.getInputStream());
@@ -68,13 +69,16 @@ public class ApiHandler {
             inputStream.close();
             conn.disconnect();
             return data;
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
+            Logging.e("ApiHandler", "File Not Found! " + Tools.printToString(e));
+            return null;
+        } catch (Exception e) {
             Logging.e("ApiHandler", Tools.printToString(e));
             if (conn != null) {
                 conn.disconnect();
             }
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public static String postRaw(String url, String body) {

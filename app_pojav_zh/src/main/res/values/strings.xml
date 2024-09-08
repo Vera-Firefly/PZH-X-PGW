@@ -12,7 +12,7 @@
     <!-- Warnings -->
     <string name="warning_remove_account">This account will be removed!</string>
     <!-- Error messages -->
-    <string name="error_fatal">Pojav Zenith·Horizon has unexpectedly crashed</string>
+    <string name="error_fatal">Pojav Zenith Horizon has unexpectedly crashed</string>
     <string name="error_no_version">No version!</string>
     <string name="error_show_more">Show more</string>
     <string name="error_show_less">Show less</string>
@@ -181,7 +181,7 @@
     <string name="preference_gyro_sample_rate_title">Gyroscope sampling rate</string>
     <string name="preference_gyro_sample_rate_description">If you have performance issues with gyroscope controls, increase this.</string>
     <string name="microsoft_login_retry_later">Too many requests, please try again later.</string>
-    <string name="storage_required">Pojav Zenith·Horizon requires external storage to be attached. Please reconnect it and restart the app.</string>
+    <string name="storage_required">Pojav Zenith Horizon requires external storage to be attached. Please reconnect it and restart the app.</string>
     <string name="mcl_setting_title_buttonallcaps">Only use capital letters in button labels</string>
     <string name="mcl_setting_subtitle_buttonallcaps">Disable this if you want to use lowercase letters in your controls.</string>
     <string name="create_profile">Create new profile</string>
@@ -252,7 +252,7 @@
     <string name="preference_category_miscellaneous">Miscellaneous settings</string>
     <string name="preference_category_video">Video settings</string>
     <string name="notification_permission_dialog_title">Permission request</string>
-    <string name="notification_permission_dialog_text">Pojav Zenith·Horizon requires a permission to post notifications to prevent game/modpack downloads from stopping when you leave the app. Without this permission, Android may shut down your downloads when you put Pojav Zenith·Horizon in background mode.</string>
+    <string name="notification_permission_dialog_text">Pojav Zenith Horizon requires a permission to post notifications to prevent game/modpack downloads from stopping when you leave the app. Without this permission, Android may shut down your downloads when you put Pojav Zenith Horizon in background mode.</string>
     <string name="notification_permission_toast">You can always change your mind later by going into Settings</string>
     <string name="preference_ask_for_notification_title">Allow notifications</string>
     <string name="preference_ask_for_notification_description">Click to re-request the notification permission, required for game/modpack background downloads to work properly.</string>
@@ -272,4 +272,28 @@
     <string name="log_view_label_log_output">Log output:</string>
     <string name="execute_jar_failed_to_read_file">Failed to read the .jar file</string>
     <string name="execute_jar_incompatible_runtime">Execute .jar feature is not compatible with Java %d</string>
+    <string name="controller_button_a" translatable="false">A</string>
+    <string name="controller_button_b" translatable="false">B</string>
+    <string name="controller_button_x" translatable="false">X</string>
+    <string name="controller_button_y" translatable="false">Y</string>
+    <string name="controller_button_start">Start</string>
+    <string name="controller_button_select">Select</string>
+    <string name="controller_button_trigger_left">Left Trigger</string>
+    <string name="controller_button_trigger_right">Right Trigger</string>
+    <string name="controller_button_shoulder_left">Left Shoulder</string>
+    <string name="controller_button_shoulder_right">Right Shoulder</string>
+    <string name="controller_direction_forward">Stick Up</string>
+    <string name="controller_direction_backward">Stick Down</string>
+    <string name="controller_direction_left">Stick Left</string>
+    <string name="controller_direction_right">Stick Right</string>
+    <string name="controller_stick_press_l">Left Thumbstick (click)</string>
+    <string name="controller_stick_press_r">Right Thumbstick (click)</string>
+    <string name="controller_dpad_up">D-Pad Up</string>
+    <string name="controller_dpad_down">D-Pad Down</string>
+    <string name="controller_dpad_left">D-Pad Left</string>
+    <string name="controller_dpad_right">D-Pad Right</string>
+    <string name="controller_remapper_operating_mode">Current mode</string>
+    <string name="controller_remapper_expand_entry">Expand to change keycodes</string>
+    <string name="preference_remap_controller_title">Change controller key bindings</string>
+    <string name="preference_remap_controller_description">Allows you to modify the keyboard keys bound to each controller button</string>
 </resources>

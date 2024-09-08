@@ -1,5 +1,6 @@
 package com.movtery.pojavzh.ui.subassembly.downloadmod;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.flexbox.FlexboxLayout;
+import com.movtery.pojavzh.feature.mod.ModCategory;
 import com.movtery.pojavzh.feature.mod.ModLoaderList;
 import com.movtery.pojavzh.ui.fragment.DownloadModFragment;
 import com.movtery.pojavzh.ui.subassembly.viewmodel.ModApiViewModel;
@@ -67,9 +70,11 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
     }
 
     public class InnerHolder extends RecyclerView.ViewHolder {
+        private final Context context;
         private final View mainView;
         private final ImageView mSourceImage, mModIcon;
-        private final TextView mTitle, mDesc, mDependencies, mDownloadCount, mModloaders;
+        private final FlexboxLayout mCategoriesLayout;
+        private final TextView mTitle, mSubTitle, mDesc, mDependencies, mDownloadCount, mModloaders;
         private final ModIconCache mIconCache = new ModIconCache();
         private Future<?> mExtensionFuture;
         private ImageReceiver mImageReceiver;
@@ -77,8 +82,11 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
 
         public InnerHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
             mainView = itemView;
             mTitle = itemView.findViewById(R.id.mod_title_textview);
+            mSubTitle = itemView.findViewById(R.id.mod_subtitle_textview);
+            mCategoriesLayout = itemView.findViewById(R.id.mod_categories_Layout);
             mSourceImage = itemView.findViewById(R.id.mod_source_imageview);
             mModIcon = itemView.findViewById(R.id.mod_thumbnail_imageview);
             mDesc = itemView.findViewById(R.id.mod_body_textview);
@@ -109,7 +117,20 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
             };
             if (item.imageUrl != null) mIconCache.getImage(mImageReceiver, item.getIconCacheTag(), item.imageUrl);
             mSourceImage.setImageResource(getSourceDrawable(item.apiSource));
-            mTitle.setText(item.title);
+
+            if (item.subTitle != null) {
+                mSubTitle.setVisibility(View.VISIBLE);
+                mTitle.setText(item.subTitle);
+                mSubTitle.setText(item.title);
+            } else {
+                mSubTitle.setVisibility(View.GONE);
+                mTitle.setText(item.title);
+            }
+
+            mCategoriesLayout.removeAllViews();
+            for (ModCategory.Category category : item.categories) {
+                addCategoryView(context, mCategoriesLayout, context.getString(category.getResNameID()));
+            }
 
             FragmentActivity fragmentActivity = mod.fragment.requireActivity();
             String dependencies = StringUtils.insertSpace(fragmentActivity.getString(R.string.zh_profile_mods_information_dependencies),
@@ -153,6 +174,14 @@ public class ModDependenciesAdapter extends RecyclerView.Adapter<ModDependencies
                 default:
                     throw new RuntimeException("Unknown API source");
             }
+        }
+
+        private void addCategoryView(Context context, FlexboxLayout layout, String text) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            TextView textView = (TextView) inflater.inflate(R.layout.item_mod_category_textview, layout, false);
+            textView.setText(text);
+
+            layout.addView(textView);
         }
     }
 }

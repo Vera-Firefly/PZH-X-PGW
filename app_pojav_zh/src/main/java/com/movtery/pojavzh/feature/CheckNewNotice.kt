@@ -36,18 +36,18 @@ class CheckNewNotice {
 
             val token = context.getString(R.string.zh_private_api_token)
             CallUtils(object : CallbackListener {
-                override fun onFailure(call: Call?, e: IOException?) {
+                override fun onFailure(call: Call?) {
                     isChecking = false
                 }
 
                 @Throws(IOException::class)
                 override fun onResponse(call: Call?, response: Response?) {
                     if (!response!!.isSuccessful) {
-                        Logging.e("CheckNewNotice", "Unexpected code ${response.code()}")
+                        Logging.e("CheckNewNotice", "Unexpected code ${response.code}")
                     } else {
                         runCatching {
-                            Objects.requireNonNull(response.body())
-                            val responseBody = response.body()!!.string()
+                            Objects.requireNonNull(response.body)
+                            val responseBody = response.body!!.string()
 
                             val originJson = JSONObject(responseBody)
                             val rawBase64 = originJson.getString("content")
@@ -88,7 +88,7 @@ class CheckNewNotice {
                     }
                     isChecking = false
                 }
-            }, PathAndUrlManager.URL_GITHUB_HOME + "notice.json", if (token == "DUMMY") null else token).start()
+            }, PathAndUrlManager.URL_GITHUB_HOME + "notice.json", if (token == "DUMMY") null else token).enqueue()
         }
     }
 

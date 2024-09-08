@@ -24,6 +24,7 @@ import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.setViewAnim
 import com.movtery.pojavzh.utils.anim.ViewAnimUtils.Companion.slideInAnim
 import com.movtery.pojavzh.utils.stringutils.StringUtils
 import net.kdt.pojavlaunch.R
+import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.prefs.LauncherPreferences
 import java.util.concurrent.Future
 
@@ -34,10 +35,13 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
     private var mModsLayout: View? = null
     private var mOperateLayout: View? = null
     private var mLoadingView: View? = null
+    private var mTitleLayout: View? = null
     private var mNameText: TextView? = null
+    private var mSubTitleText: TextView? = null
     private var mSelectTitle: TextView? = null
     private var mFailedToLoad: TextView? = null
     private var mIcon: ImageView? = null
+    private var mLaunchLink: ImageView? = null
     private var mBackToTop: ImageButton? = null
     private var mReturnButton: Button? = null
     private var mRefreshButton: Button? = null
@@ -130,7 +134,10 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         mBackToTop = view.findViewById(R.id.zh_mod_back_to_top)
         mLoadingView = view.findViewById(R.id.zh_mod_loading)
         mIcon = view.findViewById(R.id.zh_mod_icon)
+        mLaunchLink = view.findViewById(R.id.zh_launch_link)
+        mTitleLayout = view.findViewById(R.id.mod_title_layout)
         mNameText = view.findViewById(R.id.zh_mod_name)
+        mSubTitleText = view.findViewById(R.id.zh_mod_subtitle)
         mSelectTitle = view.findViewById(R.id.zh_select_title)
         mFailedToLoad = view.findViewById(R.id.zh_mod_failed_to_load)
 
@@ -142,10 +149,9 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
-                val adapter = recyclerView.adapter
-                if (layoutManager != null && adapter != null) {
-                    val firstPosition = layoutManager.findFirstVisibleItemPosition()
-                    val b = firstPosition >= adapter.itemCount / 3
+                if (layoutManager != null && recyclerView.adapter != null) {
+                    val lastPosition = layoutManager.findFirstVisibleItemPosition()
+                    val b = lastPosition >= 12
 
                     AnimUtils.setVisibilityAnim(mBackToTop!!, b)
                 }
@@ -155,6 +161,13 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
 
     protected fun setNameText(nameText: String?) {
         mNameText?.text = nameText
+    }
+
+    protected fun setSubTitleText(text: String?) {
+        mSubTitleText?.apply {
+            visibility = if (text != null) View.VISIBLE else View.GONE
+            text?.let { this.text = it }
+        }
     }
 
     protected fun setIcon(icon: Drawable?) {
@@ -176,6 +189,14 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         setVisibilityAnimYoYo(mFailedToLoad!!, false)
     }
 
+    protected fun setLink(link: String?) {
+        if (link == null) return
+        mLaunchLink?.let { view ->
+            view.setOnClickListener { Tools.openURL(fragmentActivity, link) }
+            AnimUtils.setVisibilityAnim(view, true)
+        }
+    }
+
     fun switchToChild(adapter: RecyclerView.Adapter<*>?, title: String?) {
         if (currentTask!!.isDone && adapter != null) {
             //保存父级，设置选中的标题文本，切换至子级
@@ -193,7 +214,7 @@ abstract class ModListFragment : FragmentWithAnim(R.layout.fragment_mod_download
         yoYos.add(setViewAnim(mOperateLayout!!, Techniques.BounceInLeft))
 
         yoYos.add(setViewAnim(mIcon!!, Techniques.Wobble))
-        yoYos.add(setViewAnim(mNameText!!, Techniques.FadeInLeft))
+        yoYos.add(setViewAnim(mTitleLayout!!, Techniques.FadeInLeft))
         yoYos.add(setViewAnim(mReturnButton!!, Techniques.FadeInLeft))
         yoYos.add(setViewAnim(mRefreshButton!!, Techniques.FadeInLeft))
         yoYos.add(setViewAnim(releaseCheckBox!!, Techniques.FadeInLeft))

@@ -13,7 +13,7 @@
     <string name="preference_spare_framebuffer_title">إطار التخزين الاحتياطي</string>
     <string name="preference_spare_framebuffer">استخدام المخطط الثاني لإطار التخزين، إذا فشل التشغيل، يرجى إغلاقه</string>
     <string name="preference_renderer_setup_extra">العارض (توسعة)</string>
-    <string name="preference_renderer_extra_default">Mesa 24.2.0 (الافتراضي)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.2.2 (الافتراضي)</string>
     <string name="preference_extra_mesa_version">إصدار Mesa</string>
     <string name="preference_extra_driver_model">إعادة تعيين برنامج التشغيل Gallium</string>
     <!-- Dialog box prompt -->

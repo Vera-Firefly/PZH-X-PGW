@@ -13,7 +13,7 @@
     <string name="preference_spare_framebuffer_title">Spare Framebuffer</string>
     <string name="preference_spare_framebuffer">Use the second framebuffer option. If it fails to start, please disable it.</string>
     <string name="preference_renderer_setup_extra">Renderer (Extra)</string>
-    <string name="preference_renderer_extra_default">Mesa 24.2.0 (Default)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.2.2 (Default)</string>
     <string name="preference_extra_mesa_version">Mesa Version</string>
     <string name="preference_extra_driver_model">Gallium Driver Override</string>
     <!-- Dialog box prompt -->

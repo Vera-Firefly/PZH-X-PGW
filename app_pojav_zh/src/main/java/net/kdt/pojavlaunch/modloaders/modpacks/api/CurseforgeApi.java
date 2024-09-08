@@ -64,6 +64,17 @@ public class CurseforgeApi implements ModpackApi{
     }
 
     @Override
+    public String getWebUrl(ModItem item) {
+        JsonObject response = searchModFromID(item.id);
+        JsonObject hit = GsonJsonUtils.getJsonObjectSafe(response, "data");
+        if (hit != null) {
+            JsonObject links = hit.getAsJsonObject("links");
+            return links.get("websiteUrl").getAsString();
+        }
+        return null;
+    }
+
+    @Override
     public SearchResult searchMod(ModFilters modFilters, SearchResult previousPageResult) {
         ModCategory.Category category = modFilters.getCategory();
         if (category != ModCategory.Category.ALL && category.getCurseforgeID() == null) return returnEmptyResult();
@@ -104,20 +115,17 @@ public class CurseforgeApi implements ModpackApi{
 
             String iconUrl = fetchIconUrl(dataElement);
 
-            String name = dataElement.get("name").getAsString();
-            if (ZHTools.areaChecks("zh")) {
-                String chineseName = modFilters.isModpack() ?
-                        ModPackTranslateManager.INSTANCE.searchToChinese(name) :
-                        ModTranslateManager.INSTANCE.searchToChinese(name);
-                name = chineseName != null ? String.format("%s (%s)", chineseName, name) : name;
-            }
+            String title = dataElement.get("name").getAsString();
+            String subTitle = getSubTitle(title, modFilters.isModpack());
 
             ModItem modItem = new ModItem(Constants.SOURCE_CURSEFORGE,
                     modFilters.isModpack(),
                     dataElement.get("id").getAsString(),
-                    name,
+                    title,
+                    subTitle,
                     dataElement.get("summary").getAsString(),
                     dataElement.get("downloadCount").getAsInt(),
+                    getAllCategories(dataElement),
                     getModloaders(dataElement.getAsJsonArray("latestFilesIndexes")),
                     iconUrl);
             modItemList.add(modItem);
@@ -216,7 +224,7 @@ public class CurseforgeApi implements ModpackApi{
 
                 if (!ModCache.ModItemCache.INSTANCE.containsKey(this, modId)) {
                     JsonObject response = searchModFromID(modId);
-                    JsonObject hit = response.get("data").getAsJsonObject();
+                    JsonObject hit = GsonJsonUtils.getJsonObjectSafe(response, "data");
 
                     if (hit != null) {
                         JsonArray itemsGameVersions = modDetail.getAsJsonArray("gameVersions");
@@ -229,13 +237,18 @@ public class CurseforgeApi implements ModpackApi{
 
                         String iconUrl = fetchIconUrl(hit);
 
+                        String title = hit.get("name").getAsString();
+                        String subTitle = getSubTitle(title, item.isModpack);
+
                         ModCache.ModItemCache.INSTANCE.put(this, modId, new ModItem(
                                 Constants.SOURCE_CURSEFORGE,
                                 hit.get("categories").getAsJsonArray().get(0).getAsJsonObject().get("classId").getAsInt() != CURSEFORGE_MOD_CLASS_ID,
                                 modId,
-                                hit.get("name").getAsString(),
+                                title,
+                                subTitle,
                                 hit.get("summary").getAsString(),
                                 hit.get("downloadCount").getAsInt(),
+                                getAllCategories(hit),
                                 itemsModloaderNames.toArray(new ModLoaderList.ModLoader[]{}),
                                 iconUrl
                         ));
@@ -256,6 +269,26 @@ public class CurseforgeApi implements ModpackApi{
             Logging.e("CurseForgeAPI", Tools.printToString(e));
             return null;
         }
+    }
+
+    private String getSubTitle(String title, boolean isModPack) {
+        String subTitle = null;
+        if (ZHTools.areaChecks("zh")) {
+            subTitle = isModPack ?
+                    ModPackTranslateManager.INSTANCE.searchToChinese(title) :
+                    ModTranslateManager.INSTANCE.searchToChinese(title);
+        }
+        return subTitle;
+    }
+
+    private Set<ModCategory.Category> getAllCategories(JsonObject hit) {
+        Set<ModCategory.Category> list = new TreeSet<>();
+        for (JsonElement categories : hit.get("categories").getAsJsonArray()) {
+            String id = categories.getAsJsonObject().get("id").getAsString();
+            ModCategory.Category category = ModCategory.getCategoryFromCurseForgeId(id);
+            if (category != null) list.add(category);
+        }
+        return list;
     }
 
     @Override
@@ -367,12 +400,15 @@ public class CurseforgeApi implements ModpackApi{
         int modLoaderTypeInt;
         switch (modLoaderName) {
             case "forge":
+                Logging.i("ModLoader", "Forge, or Quilt? ...");
                 modLoaderTypeInt = ModLoader.MOD_LOADER_FORGE;
                 break;
             case "neoforge":
+                Logging.i("ModLoader", "NeoForge");
                 modLoaderTypeInt = ModLoader.MOD_LOADER_NEOFORGE;
                 break;
             case "fabric":
+                Logging.i("ModLoader", "Fabric");
                 modLoaderTypeInt = ModLoader.MOD_LOADER_FABRIC;
                 break;
             default:

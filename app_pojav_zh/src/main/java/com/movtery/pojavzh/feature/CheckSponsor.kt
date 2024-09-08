@@ -43,7 +43,7 @@ class CheckSponsor {
 
             val token = context.getString(R.string.zh_private_api_token)
             CallUtils(object : CallbackListener {
-                override fun onFailure(call: Call?, e: IOException?) {
+                override fun onFailure(call: Call?) {
                     listener.onFailure()
                     isChecking = false
                 }
@@ -51,11 +51,11 @@ class CheckSponsor {
                 @Throws(IOException::class)
                 override fun onResponse(call: Call?, response: Response?) {
                     if (!response!!.isSuccessful) {
-                        Logging.e("CheckSponsor", "Unexpected code ${response.code()}")
+                        Logging.e("CheckSponsor", "Unexpected code ${response.code}")
                     } else {
                         runCatching {
-                            Objects.requireNonNull(response.body())
-                            val responseBody = response.body()!!.string()
+                            Objects.requireNonNull(response.body)
+                            val responseBody = response.body!!.string()
 
                             val originJson = JSONObject(responseBody)
                             val rawBase64 = originJson.getString("content")
@@ -87,7 +87,7 @@ class CheckSponsor {
                     }
                     isChecking = false
                 }
-            }, PathAndUrlManager.URL_GITHUB_HOME + "sponsor.json", if (token == "DUMMY") null else token).start()
+            }, PathAndUrlManager.URL_GITHUB_HOME + "sponsor.json", if (token == "DUMMY") null else token).enqueue()
         }
     }
 

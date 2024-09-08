@@ -70,7 +70,6 @@ class DeletableListPreference @JvmOverloads constructor(
             .setTitle(R.string.preference_rendererexp_mesa_delete_title)
             .setMessage(context.getString(R.string.preference_rendererexp_mesa_delete_message, version))
             .setConfirmClickListener {
-                // 我不知道删除Mesa版本使用自定义listPref是不是一个明智的选择
                 val success = MesaUtils.INSTANCE.deleteMesaLib(version)
                 if (success) {
                     Toast.makeText(context, R.string.preference_rendererexp_mesa_deleted, Toast.LENGTH_SHORT).show()

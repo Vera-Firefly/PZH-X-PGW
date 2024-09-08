@@ -199,7 +199,7 @@
     <string name="preference_force_big_core_title">إجبار عارض الرسوميات على تشغيل النواة الكبيرة</string>
     <string name="preference_force_big_core_desc">يجبر عارض رسوميات Minecraft للعمل على نواة ذات التردد الأعلى على اقصى تردد لها.</string>
     <string name="version_select_hint">إختر إصدار</string>
-    <string name="forge_dl_progress">تنزيل المثبت ل %s</string>
+    <string name="forge_dl_progress">تنزيل المثبت لـ%s</string>
     <string name="forge_dl_searching">البحث عن رقم إصدار Forge</string>
     <string name="modloader_dl_failed_to_load_list">فشل تحميل قائمة الإصدارات!</string>
     <string name="forge_dl_no_installer">عذراً، لكن هذا الإصدار من Forge لا يحتوي على مثبت، الذي لم يتم دعمه بعد.</string>
@@ -267,4 +267,24 @@
     <string name="log_view_label_log_output">إخراج السجل:</string>
     <string name="execute_jar_failed_to_read_file">فشل في قراءة ملف .jar</string>
     <string name="execute_jar_incompatible_runtime">ميزة تنفيذ .jar غير متوافقة مع Java %d</string>
+    <string name="controller_button_start">ابدأ</string>
+    <string name="controller_button_select">اختر</string>
+    <string name="controller_button_trigger_left">الزر الزناد الأيسر</string>
+    <string name="controller_button_trigger_right">الزر الزناد الأيمن</string>
+    <string name="controller_button_shoulder_left">الزر الكتف الأيسر</string>
+    <string name="controller_button_shoulder_right">الزر الكتف الأيمن</string>
+    <string name="controller_direction_forward">العصا للأعلى</string>
+    <string name="controller_direction_backward">العصا للأسفل</string>
+    <string name="controller_direction_left">العصا لليسار</string>
+    <string name="controller_direction_right">العصا لليمين</string>
+    <string name="controller_stick_press_l">العصا اليمنى مضغوط</string>
+    <string name="controller_stick_press_r">العصا اليمنى مضغوط</string>
+    <string name="controller_dpad_up">زر الاتجاه للأعلى</string>
+    <string name="controller_dpad_down">زر الاتجاه للأسفل</string>
+    <string name="controller_dpad_left">زر الاتجاه لليسار</string>
+    <string name="controller_dpad_right">زر الاتجاه لليمين</string>
+    <string name="controller_remapper_operating_mode">الوضع الحالي</string>
+    <string name="controller_remapper_expand_entry">توسيع إدخال إعادة تعيين وحدة التحكم</string>
+    <string name="preference_remap_controller_title">تغيير إعدادات مفاتيح التحكم</string>
+    <string name="preference_remap_controller_description">يتيح لك تعديل مفاتيح لوحة المفاتيح المرتبطة بكل زر تحكم</string>
 </resources>

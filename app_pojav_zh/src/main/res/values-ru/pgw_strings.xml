@@ -13,7 +13,7 @@
     <string name="preference_spare_framebuffer_title">Резервный буфер кадра</string>
     <string name="preference_spare_framebuffer">Использовать второй вариант буфера кадра, если запуск не удался, пожалуйста, отключите</string>
     <string name="preference_renderer_setup_extra">Рендерер (расширение)</string>
-    <string name="preference_renderer_extra_default">Mesa 24.2.0 (по умолчанию)</string>
+    <string name="preference_renderer_extra_default">Mesa 24.2.2 (по умолчанию)</string>
     <string name="preference_extra_mesa_version">Версия Mesa</string>
     <string name="preference_extra_driver_model">Переопределение драйвера Gallium</string>
     <!-- Dialog box prompt -->
